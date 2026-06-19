@@ -3,14 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Tracking App</title>
+    <meta name="description" content="TrackSphere Live Tracker — Real-time location tracking powered by Socket.io and Leaflet.">
+    <title>Live Tracker — TrackSphere</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+          integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-    <div id='map'></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
-    <script src="/js/script.js"></script> 
+
+    <!-- ── Top Navigation Bar ── -->
+    <nav class="tracker-nav">
+        <div class="tnav-left">
+            <a href="/" class="tnav-back">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 4l-6 6 6 6"/>
+                </svg>
+                Home
+            </a>
+            <a href="/" class="tnav-logo">
+                <div class="tnav-logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="17" stroke="url(#tGrad)" stroke-width="1.5"/>
+                        <ellipse cx="20" cy="20" rx="9" ry="17" stroke="url(#tGrad)" stroke-width="1.2" fill="none"/>
+                        <line x1="3" y1="20" x2="37" y2="20" stroke="url(#tGrad)" stroke-width="1.2" opacity="0.6"/>
+                        <circle cx="20" cy="20" r="3" fill="#00f5ff"/>
+                        <defs>
+                            <linearGradient id="tGrad" x1="0" y1="0" x2="40" y2="40">
+                                <stop stop-color="#00f5ff"/>
+                                <stop offset="1" stop-color="#7c3aed"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                Track<span class="tnav-logo-accent">Sphere</span>
+            </a>
+        </div>
+
+        <div class="tnav-right">
+            <div class="live-pill">
+                <div class="live-pill-dot"></div>
+                LIVE
+            </div>
+            <div class="user-count-badge" id="userCountBadge">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="8" cy="7" r="3"/>
+                    <path d="M2 17c0-3.31 2.69-6 6-6s6 2.69 6 6"/>
+                    <path d="M15 5c1.1 0 2 .9 2 2s-.9 2-2 2"/>
+                    <path d="M18 17c0-2.76-1.34-5-3-5.5"/>
+                </svg>
+                <span id="userCountNum">0</span> online
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Map ── -->
+    <div id="map"></div>
+
+    <!-- ── Toast Notification ── -->
+    <div class="tracker-toast" id="toast">
+        <div class="toast-dot" id="toastDot"></div>
+        <span id="toastMsg"></span>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+            integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Socket.io v4 — matching server version -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Tracker script -->
+    <script src="/js/script.js"></script>
 </body>
 </html>
